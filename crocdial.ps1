@@ -125,7 +125,7 @@ echo     crocdial - SEND
 echo     to: $Recipient
 echo  =====================
 echo.
-croc send --code "$CodePhrase"$BatRelayFlag -- %*
+croc$BatRelayFlag --code "$CodePhrase" send -- %*
 goto :END
 
 :RECEIVE
@@ -199,7 +199,7 @@ else
     echo "     to: $Recipient"
     echo "  ====================="
     echo ""
-    croc send --code "$CodePhrase"$ShRelayFlag -- "`$@"
+    croc$ShRelayFlag --code "$CodePhrase" send -- "`$@"
 fi
 "@
 
@@ -263,7 +263,7 @@ if "!MSG!"=="" (
 )
 set "TMPFILE=%TEMP%\crocdial_msg_%RANDOM%.txt"
 >"%TMPFILE%" echo(!MSG!
-croc send --code "$CodePhrase"$BatRelayFlag "%TMPFILE%"
+croc$BatRelayFlag --code "$CodePhrase" send "%TMPFILE%"
 goto :END
 
 :END
@@ -296,7 +296,7 @@ if [ `$# -eq 0 ]; then
     TMPFILE=`$(mktemp /tmp/crocdial_msg.XXXXXX.txt)
     trap 'rm -f "`$TMPFILE"' EXIT
     echo "`$MSG" > "`$TMPFILE"
-    croc send --code "$CodePhrase"$ShRelayFlag "`$TMPFILE" </dev/null
+    croc$ShRelayFlag --code "$CodePhrase" send "`$TMPFILE" </dev/null
     rm -f "`$TMPFILE"
 else
     echo ""
